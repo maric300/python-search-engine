@@ -8,7 +8,7 @@ import msort
 linkovi = []
 reci = []
 trie_dict = {}
-directory = "C:/Microsoft VS Code/FTN/FTN/Alogirtmi/Search Engine/python-2.7.7-docs-html"
+directory = ""
 parseric = Parser()
 directory_dict = {}
 best_val = 0
@@ -132,7 +132,7 @@ def operator_search(wrd_list_bad, direktorijum, vertices_dict):
         print("Nema rezultata pretrage.")
     else:
         while True:
-            list_cnt = input("Unesite broj rezultata koje zelite da se ispise(1 - 50): ")
+            list_cnt = input("Enter the number of results you want to be displayed(1 - 50): ")
             if list_cnt.isnumeric() == True and (int(list_cnt) > 0 and int(list_cnt) < 51):
                 sort_html_dict = {}
                 sort_html_dict.clear()
@@ -161,7 +161,7 @@ def operator_search(wrd_list_bad, direktorijum, vertices_dict):
                     cnt += 1
                 break
             else:
-                print("Niste uneli validan broj.")
+                print("Invalid input.")
         found_htmls.clear()
         sort_html_dict.clear()
         new_found_htmls.clear()
@@ -187,9 +187,9 @@ def sort_dict(dict, limit):
 def change_dir():
     dict_of_vertices = {}
     while True:
-        dir_inp = input("Unesite direktorijum: ")
+        dir_inp = input("Enter the directory path: ")
         if dir_inp == "standard":
-            dir_inp = "C:/Microsoft VS Code/FTN/FTN/Alogirtmi/Search Engine/python-2.7.7-docs-html"
+            dir_inp = ""
         if os.path.exists(dir_inp):
             found_a_html, list_of_edge_lists, edge_list = iterare_through_dir(dir_inp, [], [])
             if found_a_html == True:
@@ -197,9 +197,9 @@ def change_dir():
                 dict_of_vertices, graf = graph.graph_from_edgelist(list_of_edge_lists)
                 return dir_inp, dict_of_vertices, graf
             else:
-                print("Ne postoji nijedan html fajl u unetom direktorijumu.")
+                print("No HTML files found in the directory.")
         else:
-            print("Niste uneli validan direktorjium")
+            print("Invalid directory input.")
 
 def phrase_quick_search(wrd_listara, direktorijum):
     not_a_phrase = False
@@ -224,9 +224,9 @@ def phrase_quick_search(wrd_listara, direktorijum):
 new_dir, dict_of_vertices, graf = change_dir()
 list_of_operators = ["AND", "OR", "NOT"]
 while True:
-    print("----------------------------------GLAVNI MENI----------------------------------\n\n")
-    print("Otvoren direktorijum: " + new_dir + "\n")
-    user_inp = input("1. Promena direktorijuma\n2. Unos reci\n3. Izlaz\n")
+    print("----------------------------------MAIN MENU----------------------------------\n\n")
+    print("Current directory: " + new_dir + "\n")
+    user_inp = input("1. Change directory\n2. Search\n3. Exit\n")
 
     if user_inp.isnumeric() != True:
         print("Niste uneli broj.")
@@ -236,14 +236,14 @@ while True:
         parsed_words_dict.clear()
         new_dir, dict_of_vertices, graf = change_dir()
     elif user_inp == "2":
-        print("\nZa upotrebu logickih operatora obavezno koristiti velika slova ('AND', 'OR', 'NOT')")
-        print("Dozvoljena je upotreba logickog operatora samo sa dva operanda. (java AND python)\n")
-        print('Ukoliko zelite da pretrazite vise uzastopnih reci, odnosno frazu, koristite ISKLJUCIVO duple navodnike ("The Python Software Foundation")\n')
-        print("Ukucajte 'x' za povratak na glavni meni.")
+        print("\nFor using logical operators, you must use uppercase letters ('AND', 'OR', 'NOT')")
+        print("Logical operators are allowed to be used only with two operands. (java AND python)\n")
+        print('If you want to search for multiple consecutive words, i.e., a phrase, use ONLY double quotes ("The Python Software Foundation")\n')
+        print("Type 'x' to return to the main menu.")
         while True:
             cont = False
             has_operator_searched = False
-            wrd_inp = input("Unesite reci: ")
+            wrd_inp = input("Input: ")
             if wrd_inp.lower() == "x":
                 break
             wrd_list = wrd_inp.split(" ")
@@ -291,7 +291,7 @@ while True:
                 while True:
                     cont == False
                     if phrase_found_htmls:
-                        list_cnt = input("Unesite broj rezultata koje zelite da se ispise(1 - 50): ")
+                        list_cnt = input("Enter the number of results you want to be displayed(1 - 50): ")
                         if list_cnt.isnumeric() == True and (int(list_cnt) > 0 and int(list_cnt) < 51):
                             sort_html_dict = sort_dict(phrase_found_htmls, int(list_cnt))
                             first_html = next(iter(sort_html_dict))
@@ -328,9 +328,9 @@ while True:
                             print("_________________________________________________________________")
                             break
                         else:
-                            print("Niste uneli validan broj.")
+                            print("Invalid number.")
                     else:
-                        print("Nema rezultata pretrage.")
+                        print("No results.")
                         break
 
             
@@ -346,17 +346,17 @@ while True:
                     has_operator_searched = True
                     break
                 else:
-                    print("Niste uneli validnu pretragu.")
+                    print("Invalid search.")
             else:
                 for wrd in wrd_list:
                     wrd_count = search(new_dir, wrd, 0, dict_of_vertices)
 
                 if len(found_htmls) == 0:
-                    print("Nema rezultata pretrage.")
+                    print("No results.")
                 else:
                     while True:
                         cont == False
-                        list_cnt = input("Unesite broj rezultata koje zelite da se ispise(1 - 50): ")
+                        list_cnt = input("Enter the number of results you want to be displayed(1 - 50): ")
                         if list_cnt.isnumeric() == True and (int(list_cnt) > 0 and int(list_cnt) < 51):
                             sort_html_dict = sort_dict(found_htmls, int(list_cnt))
                             first_html = next(iter(sort_html_dict))
@@ -386,10 +386,10 @@ while True:
                             has_operator_searched = True
                             break
                         else:
-                            print("Niste uneli validan broj.")
+                            print("Invalid input.")
                 break
             break
     elif user_inp == "3":
         break
     else:
-        print("Niste uneli dati broj.")
+        print("Invalid number.")
